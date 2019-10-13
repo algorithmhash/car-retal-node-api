@@ -37,10 +37,10 @@ router.get('/', (req, res, next)=>{
     //     message: 'Handling GET requests to /products'
     // })
     Product.find()
-    .select('name price _id productImage')
+    .select('name price _id productImage ownerName descriptionRegardingAvailability fuelType seats mobileNumber')
     .exec()
     .then(docs=>{
-        // console.log(docs);
+        console.log(docs);
         const response = {
             count: docs.length,
             products: docs.map(doc=>{
@@ -49,6 +49,11 @@ router.get('/', (req, res, next)=>{
                     price: doc.price,
                     productImage: doc.productImage,
                     _id: doc._id,
+                    ownerName: doc.ownerName,
+                    descriptionRegardingAvailability: doc.descriptionRegardingAvailability, 
+                    fuelType: doc.fuelType,
+                    seats: doc.seats,
+                    mobileNumber: doc.mobileNumber,
                     request: {
                         type: 'GET',
                         url: 'http://localhost:3000/products/'+doc.id
@@ -82,7 +87,12 @@ router.post('/', upload.single('productImage'), (req, res, next)=>{
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         price: req.body.price,
-        productImage: req.file.path
+        productImage: req.file.path,
+        ownerName: req.body.ownerName,
+        descriptionRegardingAvailability: req.body.descriptionRegardingAvailability, 
+        fuelType: req.body.fuelType,
+        seats: req.body.seats,
+        mobileNumber: req.body.mobileNumber
     });
     product
     .save()
@@ -94,6 +104,11 @@ router.post('/', upload.single('productImage'), (req, res, next)=>{
                 name: result.name,
                 price: result.price,
                 _id: result.id,
+                ownerName: result.ownerName,
+                descriptionRegardingAvailability: result.descriptionRegardingAvailability, 
+                fuelType: result.fuelType,
+                seats: result.seats,
+                mobileNumber: result.mobileNumber,
                 request:{
                     type: 'GET',
                     url: 'http://localhost:3000/products/'+result.id
@@ -122,7 +137,7 @@ router.get('/:productId',(req,res,next)=>{
     //      });
     // }
     Product.findById(id)
-    .select('name price _id productImage')
+    .select('name price _id productImage ownerName descriptionRegardingAvailability fuelType seats mobileNumber')
     .exec()
     .then(doc=>{
         console.log("From database "+doc)
