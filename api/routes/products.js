@@ -259,7 +259,7 @@ router.get('/:productId',(req,res,next)=>{
             const response = {
                 // count: docs.length,
                 products: docs.map(doc=>{
-                    if(doc.fuelType==='Disel'){
+                    if(doc.fuelType==='Diesel'){
                         total = total+1;
                         return {
                             name: doc.name,
