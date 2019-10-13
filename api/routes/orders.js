@@ -9,7 +9,7 @@ router.get('/',(req,res,next)=>{
     //     message: 'Orders were fetched'
     // });
     Order.find()
-    .select('product quantity _id name price productImage')
+    .select('product quantity _id name price productImage ownerName descriptionRegardingAvailability fuelType seats mobileNumber')
     .populate('product', 'name')
     .exec()
     .then(docs=>{
@@ -23,6 +23,11 @@ router.get('/',(req,res,next)=>{
                     name: doc.name,
                     price: doc.price,
                     productImage: doc.productImage,
+                    ownerName: doc.ownerName,
+                    descriptionRegardingAvailability: doc.descriptionRegardingAvailability,
+                    fuelType: doc.fuelType,
+                    seats: doc.seats,
+                    mobileNumber: doc.mobileNumber,
                     request : {
                         type : 'GET',
                         url: 'http://localhost:3000/orders/'+doc._id
@@ -56,7 +61,12 @@ router.post('/',(req,res,next)=>{
                 product: req.body.productId,
                 productImage: product.productImage,
                 name: product.name,
-                price: product.price
+                price: product.price,
+                ownerName: product.ownerName,
+                descriptionRegardingAvailability: product.descriptionRegardingAvailability,
+                fuelType: product.fuelType,
+                seats: product.seats,
+                mobileNumber: product.mobileNumber
             });
             return order
             .save()
@@ -72,7 +82,12 @@ router.post('/',(req,res,next)=>{
                         quantity: result.quantity,
                         productImage: result.productImage,
                         name: result.name,
-                        price: result.price
+                        price: result.price,
+                        ownerName: result.ownerName,
+                        descriptionRegardingAvailability: result.descriptionRegardingAvailability,
+                        fuelType: result.fuelType,
+                        seats: result.seats,
+                        mobileNumber: result.mobileNumber
                     },
                     request: {
                         type: 'GET',
