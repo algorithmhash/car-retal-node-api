@@ -1,0 +1,8 @@
+{
+    "name": "Node-Rest-Shop",
+    "description": "A product selling application",
+    "repository": "https://github.com/adityabajpai/Node-rest-shop",
+    "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
+    "keywords": ["node", "express", "heroku"],
+    "image": "heroku/nodejs"
+}
