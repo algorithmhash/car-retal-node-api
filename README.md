@@ -23,7 +23,7 @@ https://car-rental-api-node.herokuapp.com</br>
 
 ## Method and Response ##
 
-### a. To post a product(POST Method) ###</br>
+### a. To post a product(POST Method) </br>
 **Link:-** https://car-rental-api-node.herokuapp.com/products</br>
 **Format for form-data**</br>
 * name(String)
@@ -33,73 +33,93 @@ https://car-rental-api-node.herokuapp.com</br>
 * descriptionRegardingAvailability(String)
 * fuelType(String)
 * seats(Number)
-* mobileNumber(String)
+* mobileNumber(String)</br>
+### Screenshot
+<img src = "https://github.com/adityabajpai/car-retal-node-api/blob/master/Responses/Product/Product%20POST.png"
+alt="Product POST"/>
 
 
-To get list of all products(GET Method)</br>
-https://car-rental-api-node.herokuapp.com/products
+### b. To get list of all products(GET Method)</br>
+https://car-rental-api-node.herokuapp.com/products</br>
+### Screenshot
+<img src="https://github.com/adityabajpai/car-retal-node-api/blob/master/Responses/Product/Product%20GET.png"
+alt="Product GET" />
 
-To sort the list of all products based on price(GET Method)</br>
-https://car-rental-api-node.herokuapp.com/products/sortByPrice
+### c. To sort the list of all products based on price(GET Method)</br>
+https://car-rental-api-node.herokuapp.com/products/sortByPrice</br>
+### Screenshot
+<img src = "https://github.com/adityabajpai/car-retal-node-api/blob/master/Responses/Product/sortByPrice.png"
+alt = "sort by price"/>
 
-To get list of all products having fuel type as Petrol</br>
-https://car-rental-api-node.herokuapp.com/products/Petrol
+### d. To get list of all products having fuel type as Petrol</br>
+https://car-rental-api-node.herokuapp.com/products/Petrol</br>
+### Screenshot
+<img src="https://github.com/adityabajpai/car-retal-node-api/blob/master/Responses/Product/Petrol.png"
+alt="Petrol"/>
 
-To get list of all products having fuel type as Diesel</br>
+### e. To get list of all products having fuel type as Diesel</br>
 https://car-rental-api-node.herokuapp.com/products/Diesel</br>
+### Screnshot
+<img src="https://github.com/adityabajpai/car-retal-node-api/blob/master/Responses/Product/Diesel.png"
+alt="Diesel"/>
 
-To get list of all products having fuel type as CNG</br>
+### f. To get list of all products having fuel type as CNG</br>
 https://car-rental-api-node.herokuapp.com/products/CNG</br>
+### Screenshot
+<img src = "https://github.com/adityabajpai/car-retal-node-api/blob/master/Responses/Product/CNG.png"
+alt="CNG"/>
 
-
-To update the details of any product(PATCH Method)</br>
+### g. To update the details of any product(PATCH Method)</br>
 https://car-rental-api-node.herokuapp.com/products/+'productId'</br>
-pass JSON array having key defined under propName and value of key under value</br>
-Example:</br>
+Example: for passing raw-data in body in JSON format</br>
 [</br>
 	{"propName":"price" ,"value":"110"} </br>
 ]</br>
+### Screenshot
+<img src="https://github.com/adityabajpai/car-retal-node-api/blob/master/Responses/Product/Update%20the%20Product.png"
+alt = "Update the Product"/>
 
-
-To get details of a single product(GET METHOD)</br>
+### h. To get details of a single product(GET METHOD)</br>
 https://car-rental-api-node.herokuapp.com/products/+'productId'</br>
+### Screenshot
+<img src="https://github.com/adityabajpai/car-retal-node-api/blob/master/Responses/Product/Get%20Individual%20Product.png"
+alt="Get Individual Product"/>
 
-
-To delete details of any particular product(DELETE METHOD)</br>
+### i. To delete details of any particular product(DELETE METHOD)</br>
 https://car-rental-api-node.herokuapp.com/products/+'productId'</br>
+### Screenshot
+<img src="https://github.com/adityabajpai/car-retal-node-api/blob/master/Responses/Product/Delete%20the%20Product.png"
+alt="Delete the Individual Product" />
 
+## How to access Orders API?</br>
 
-How to access Orders API?</br>
-
-
-To place an order for a product(POST METHOD)</br>
+### a. To place an order for a product(POST METHOD)</br>
 https://car-rental-api-node.herokuapp.com/orders</br>
-raw-data having key-value pair in JSON format having key as productId and value as any id of car</br>
-<<<<<<< HEAD
+Example: for passing raw-data in body in JSON format</br>
 {</br>
 	"productId" : "5da3d4919f76c1002402cfb7"
 }</br>
-=======
-Example:</br>
-{</br>
-	"productId" : "5da3d4919f76c1002402cfb7"
-</br>}</br>
->>>>>>> edb767b65e9ee5c7e8bf25ee3a84928770da7605
+### Screenshot
+<img src="https://github.com/adityabajpai/car-retal-node-api/blob/master/Responses/Order/Order%20Post.png"
+alt = "Order POST" />
 
-
-To get list of all order for a products(GET Method)</br>
+### b. To get list of all order for a products(GET Method)</br>
 https://car-rental-api-node.herokuapp.com/orders</br>
+### Screnshot
+<img src="https://github.com/adityabajpai/car-retal-node-api/blob/master/Responses/Order/Order%20Get.png"
+alt = "Order GET" />
 
-
-To get the details of a prticular order(GET Method)</br>
-https://car-rental-api-node.herokuapp.com/orders/+'productId'
-
-
-To delete a particular Order(DELETE Method)</br>
+### c. To get the details of a prticular order(GET Method)</br>
 https://car-rental-api-node.herokuapp.com/orders/+'productId'</br>
+### Screenshot
+<img src = "https://github.com/adityabajpai/car-retal-node-api/blob/master/Responses/Order/Get%20Individual%20Order.png"
+alt = "Get Details of individual Order"/>
 
-<<<<<<< HEAD
-Please message if found any error or for any upgradation.
-=======
-Please message if found any error or for any upgradation.
->>>>>>> edb767b65e9ee5c7e8bf25ee3a84928770da7605
+### d. To delete a particular Order(DELETE Method)</br>
+https://car-rental-api-node.herokuapp.com/orders/+'productId'</br>
+### Screenshot
+<img src = "https://github.com/adityabajpai/car-retal-node-api/blob/master/Responses/Order/Delete%20Individual%20Order.png"
+alt = "Delete individual Order"/>
+
+
+### Please message if found any error or for any upgradation.
