@@ -56,9 +56,9 @@ router.post('/',(req,res,next)=>{
             })
         }else{
             const order = new Order({
-                _id: mongoose.Types.ObjectId(),
+                _id: req.body.productId,
                 quantity: req.body.quantity,
-                product: req.body.productId,
+                // product: req.body.productId,
                 productImage: product.productImage,
                 name: product.name,
                 price: product.price,
@@ -71,47 +71,36 @@ router.post('/',(req,res,next)=>{
             return order
             .save()
             .then(result=>{
-                console.log(result);
-                console.log("result");
-                console.log(result.product);
-                res.status(201).json({
-                    message: 'Order placed',
-                    createdOrder: {
-                        _id: result._id,
-                        product: result.product,
-                        quantity: result.quantity,
-                        productImage: result.productImage,
-                        name: result.name,
-                        price: result.price,
-                        ownerName: result.ownerName,
-                        descriptionRegardingAvailability: result.descriptionRegardingAvailability,
-                        fuelType: result.fuelType,
-                        seats: result.seats,
-                        mobileNumber: result.mobileNumber
-                    },
-                    request: {
-                        type: 'GET',
-                        url: 'http://localhost:3000/orders/'+result._id
-                    }
-                });
-                Product.deleteOne({_id: req.body.productId})
-                .exec()
-                .then(result=>{
-                    res.status(200).json({
-                        message: 'Product deleted',
-                        request: {
-                            type: 'POST',
-                            url : 'http://localhost:3000/products',
-                            body : {name: 'String', price: 'Number'}
-                        }
-                    });
-                })
-                .catch(err=>{
-                    console.log(err);
-                    res.status(500).json({
-                        error: err
+                    Product.deleteOne({_id: req.body.productId})
+                    .exec()
+                    .then(result=>{
+                            res.status(200).json({
+                                message: 'Order placed',
+                            createdOrder: {
+                                _id: result._id,
+                                product: product.product,
+                                quantity: product.quantity,
+                                productImage: product.productImage,
+                                name: product.name,
+                                price: product.price,
+                                ownerName: product.ownerName,
+                                descriptionRegardingAvailability: product.descriptionRegardingAvailability,
+                                fuelType: product.fuelType,
+                                seats: product.seats,
+                                mobileNumber: product.mobileNumber
+                            },
+                            request: {
+                                type: 'GET',
+                                url: 'http://localhost:3000/orders/'+result._id
+                            },
+                        });
                     })
-                });
+                    .catch(err=>{
+                        console.log(err);
+                        res.status(500).json({
+                            error: err
+                        })
+                    })
             })
             .catch(err=>{
                 console.log(err);
@@ -166,77 +155,69 @@ router.get('/:orderId',(req,res,next)=>{
 router.delete('/:orderId',(req,res,next)=>{
 
     Order.findById(req.params.orderId)
-    .populate('product')
-    .exec()
     .then(order=>{
         if(!order){
-            return res.status(404).json({
-                message: 'Order not found'
-            })
-        }
-
-
-        const product = new Product({
-            _id: new mongoose.Types.ObjectId(),
-            name: order.name,
-            price: order.price,
-            productImage: order.productImage
-        });
-        product
-        .save()
-        .then((result)=>{
-            console.log(result);
-            res.status(201).json({
-                message: 'Created Product successfully',
-                createdProduct: {
-                    name: result.name,
-                    price: result.price,
-                    _id: result.id,
-                    request:{
-                        type: 'GET',
-                        url: 'http://localhost:3000/products/'+result.id
-                    }
-                }
-            })
-            Order.deleteOne({_id: req.params.orderId})
-            .exec()
-            .then(result=>{
-                console.log(result);
-                res.status(200).json({
-                    message: 'order deleted',
-                    request: {
-                        type: 'POST',
-                        url: 'http://localhost:3000/orders',
-                        body: {productId: 'ID', quantity: 'Number'}
-                    }
+            res.status(404).json({message:"Product Not Found"})
+        }else{
+            // res.status(200).json({message:"Product Found"})
+            const product = new Product({
+                _id: req.params.orderId,
+                name: order.name,
+                price: order.price,
+                productImage: order.productImage,
+                ownerName: order.ownerName,
+                descriptionRegardingAvailability: order.descriptionRegardingAvailability, 
+                fuelType: order.fuelType,
+                seats: order.seats,
+                mobileNumber: order.mobileNumber
+            });
+            product
+            .save()
+            .then((result)=>{
+                
+                Order.deleteOne({_id: req.params.orderId})
+                .exec()
+                .then(result=>{
+                    res.status(200).json({
+                        message: 'order deleted and now available for orders',
+                        request: {
+                            type: 'POST',
+                            url: 'http://localhost:3000/orders',
+                            body: {productId: 'ID', quantity: 'Number'}
+                        },
+                        createdProduct: {
+                            name: order.name,
+                            price: order.price,
+                            productImage: order.productImage,
+                            ownerName: order.ownerName,
+                            descriptionRegardingAvailability: order.descriptionRegardingAvailability, 
+                            fuelType: order.fuelType,
+                            seats: order.seats,
+                            mobileNumber: order.mobileNumber,
+                            request:{
+                                type: 'GET',
+                                url: 'http://localhost:3000/products/'+result.id
+                            }
+                        }
+                    })
                 })
+                .catch(err=>{
+                    res.status(500).json({
+                        error: err
+                    })
+                });
             })
-            .catch(err=>{
+            .catch((err)=>{
+                console.log(err)
                 res.status(500).json({
                     error: err
                 })
             });
-        })
-        .catch((err)=>{
-            console.log(err)
-            res.status(500).json({
-                error: err
-            })
-        });
-        // res.status(200).json({
-        //     order: order,
-        //     request: {
-        //         type: 'GET',
-        //         description : 'GET DETAILS OF ALL ORDERS by below link',
-        //         url: 'http://localhost:3000/orders'
-        //     }
-        // })
+        }
     })
     .catch(err=>{
-        res.status(500).json({
-            error: err
-        })
-    });
+        res.status(500).json({error: err})
+    })
 
 });
 
