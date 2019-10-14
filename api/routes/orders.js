@@ -30,7 +30,7 @@ router.get('/',(req,res,next)=>{
                     mobileNumber: doc.mobileNumber,
                     request : {
                         type : 'GET',
-                        url: 'http://localhost:3000/orders/'+doc._id
+                        url: 'http://car-rental-api-node.herokuapp.com/orders/'+doc._id
                     }
                 }
             }),
@@ -91,7 +91,7 @@ router.post('/',(req,res,next)=>{
                             },
                             request: {
                                 type: 'GET',
-                                url: 'http://localhost:3000/orders/'+result._id
+                                url: 'http://car-rental-api-node.herokuapp.com/orders/'+result._id
                             },
                         });
                     })
@@ -137,7 +137,7 @@ router.get('/:orderId',(req,res,next)=>{
             request: {
                 type: 'GET',
                 description : 'GET DETAILS OF ALL ORDERS by below link',
-                url: 'http://localhost:3000/orders'
+                url: 'http://car-rental-api-node.herokuapp.com/orders'
             }
         })
     })
@@ -182,10 +182,11 @@ router.delete('/:orderId',(req,res,next)=>{
                         message: 'order deleted and now available for orders',
                         request: {
                             type: 'POST',
-                            url: 'http://localhost:3000/orders',
+                            url: 'http://car-rental-api-node.herokuapp.com/orders',
                             body: {productId: 'ID', quantity: 'Number'}
                         },
                         createdProduct: {
+                            _id: order._id,
                             name: order.name,
                             price: order.price,
                             productImage: order.productImage,
@@ -196,7 +197,7 @@ router.delete('/:orderId',(req,res,next)=>{
                             mobileNumber: order.mobileNumber,
                             request:{
                                 type: 'GET',
-                                url: 'http://localhost:3000/products/'+result.id
+                                url: 'http://car-rental-api-node.herokuapp.com/products/'+result.id
                             }
                         }
                     })

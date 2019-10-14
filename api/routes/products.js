@@ -56,7 +56,7 @@ router.get('/', (req, res, next)=>{
                     mobileNumber: doc.mobileNumber,
                     request: {
                         type: 'GET',
-                        url: 'http://localhost:3000/products/'+doc.id
+                        url: 'http://car-rental-api-node.herokuapp.com/products/'+doc.id
                     }
                 }
             })
@@ -111,7 +111,7 @@ router.post('/', upload.single('productImage'), (req, res, next)=>{
                 mobileNumber: result.mobileNumber,
                 request:{
                     type: 'GET',
-                    url: 'http://localhost:3000/products/'+result.id
+                    url: 'http://car-rental-api-node.herokuapp.com/products/'+result.id
                 }
             }
         })
@@ -159,7 +159,7 @@ router.get('/:productId',(req,res,next)=>{
                         mobileNumber: doc.mobileNumber,
                         request: {
                             type: 'GET',
-                            url: 'http://localhost:3000/products/'+doc.id
+                            url: 'http://car-rental-api-node.herokuapp.com/products/'+doc.id
                         }
                     }
                 })
@@ -214,7 +214,7 @@ router.get('/:productId',(req,res,next)=>{
                             mobileNumber: doc.mobileNumber,
                             request: {
                                 type: 'GET',
-                                url: 'http://localhost:3000/products/'+doc.id
+                                url: 'http://car-rental-api-node.herokuapp.com/products/'+doc.id
                             }
                         }
                     }
@@ -273,7 +273,7 @@ router.get('/:productId',(req,res,next)=>{
                             mobileNumber: doc.mobileNumber,
                             request: {
                                 type: 'GET',
-                                url: 'http://localhost:3000/products/'+doc.id
+                                url: 'http://car-rental-api-node.herokuapp.com/products/'+doc.id
                             }
                         }
                     }
@@ -333,7 +333,7 @@ router.get('/:productId',(req,res,next)=>{
                             mobileNumber: doc.mobileNumber,
                             request: {
                                 type: 'GET',
-                                url: 'http://localhost:3000/products/'+doc.id
+                                url: 'http://car-rental-api-node.herokuapp.com/products/'+doc.id
                             }
                         }
                     }
@@ -379,7 +379,7 @@ router.get('/:productId',(req,res,next)=>{
                     request: {
                         type: 'GET',
                         description: 'To get all products click below link',
-                        url : 'http://localhost:3000/products'
+                        url : 'http://car-rental-api-node.herokuapp.com/products'
                     }
                 });
             }else{
@@ -412,7 +412,7 @@ router.get('/:productId',(req,res,next)=>{
             message: 'product updated',
             request: {
                 type: 'GET',
-                url : 'http://localhost:3000/products/'+id
+                url : 'http://car-rental-api-node.herokuapp.com/products/'+id
             }
         });
     })
@@ -436,7 +436,7 @@ router.get('/:productId',(req,res,next)=>{
             message: 'Product deleted',
             request: {
                 type: 'POST',
-                url : 'http://localhost:3000/products',
+                url : 'http://car-rental-api-node.herokuapp.com/products',
                 body : {name: 'String', price: 'Number'}
             }
         });
