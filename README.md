@@ -1,7 +1,7 @@
-# car-retal-node-api
-REST API for car-rental-service
+# REST API for car-rental-service
 
 
+<<<<<<< HEAD
 Getting Started</br>
 npm install
 
@@ -22,6 +22,42 @@ To post a product(POST Method)</br>
 https://car-rental-api-node.herokuapp.com/products</br>
 form-data having key-value pair</br>
 name(String), price(Number), productImage(File size must not be greater than 5MB), ownerName(String), descriptionRegardingAvailability(String), fuelType(String), seats(Number), mobileNumber(String)
+=======
+**1. Getting Started**</br>
+npm install
+
+
+**2. Dependencies used:**</br>
+ * body-parsers</br>
+ * express</br>
+ * mongoose</br>
+ * morgan</br>
+ * multer</br>
+ * nodemon
+
+
+**3. To start server:**</br>
+npm start
+
+
+To check if server is running link: </br>
+https://car-rental-api-node.herokuapp.com</br>
+**Response:**{"error":{"message":"Server is running"}}
+
+## Method and Response ##
+
+### a. To post a product(POST Method) ###</br>
+**Link:-** https://car-rental-api-node.herokuapp.com/products</br>
+**Format for form-data**</br>
+* name(String)
+* price(Number)
+* productImage(File size must not be greater than 5MB)
+* ownerName(String)
+* descriptionRegardingAvailability(String)
+* fuelType(String)
+* seats(Number)
+* mobileNumber(String)
+>>>>>>> edb767b65e9ee5c7e8bf25ee3a84928770da7605
 
 
 To get list of all products(GET Method)</br>
@@ -63,9 +99,16 @@ How to access Orders API?</br>
 To place an order for a product(POST METHOD)</br>
 https://car-rental-api-node.herokuapp.com/orders</br>
 raw-data having key-value pair in JSON format having key as productId and value as any id of car</br>
+<<<<<<< HEAD
 {</br>
 	"productId" : "5da3d4919f76c1002402cfb7"
 }</br>
+=======
+Example:</br>
+{</br>
+	"productId" : "5da3d4919f76c1002402cfb7"
+</br>}</br>
+>>>>>>> edb767b65e9ee5c7e8bf25ee3a84928770da7605
 
 
 To get list of all order for a products(GET Method)</br>
@@ -79,4 +122,8 @@ https://car-rental-api-node.herokuapp.com/orders/+'productId'
 To delete a particular Order(DELETE Method)</br>
 https://car-rental-api-node.herokuapp.com/orders/+'productId'</br>
 
+<<<<<<< HEAD
 Please message if found any error or for any upgradation.
+=======
+Please message if found any error or for any upgradation.
+>>>>>>> edb767b65e9ee5c7e8bf25ee3a84928770da7605
