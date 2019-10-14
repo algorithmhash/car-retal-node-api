@@ -7,7 +7,7 @@ const chalk = require('chalk');
 const productRoutes = require('./api/routes/products');
 const ordersRoutes = require('./api/routes/orders');
 
-mongoose.connect('mongodb+srv://car-rental-api:' + process.env.MONGO_ATLAS_PW + '@cluster0-w5seu.mongodb.net/test?retryWrites=true&w=majority', {
+mongoose.connect(process.env.MongoServerString + process.env.MONGO_ATLAS_PW + process.env.MongoClusterString, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => {

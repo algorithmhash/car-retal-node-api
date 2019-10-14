@@ -1,5 +1,7 @@
 {
     "env": {
-        "MONGO_ATLAS_PW": "yourpasswordgoeshere"
+        "MONGO_ATLAS_PW": "yourpasswordgoeshere",
+        "MongoServerString": "mongodb+srv://yourservername:",
+        "MongoClusterString": "@cluster0-w5seu.mongodb.net/test?retryWrites=true&w=majority"
     }
 }
