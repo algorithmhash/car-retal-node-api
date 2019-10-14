@@ -65,7 +65,7 @@ https://car-rental-api-node.herokuapp.com/orders</br>
 raw-data having key-value pair in JSON format having key as productId and value as any id of car</br>
 {</br>
 	"productId" : "5da3d4919f76c1002402cfb7"
-}</br>
+</br>}</br>
 
 
 To get list of all order for a products(GET Method)</br>
