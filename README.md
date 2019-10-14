@@ -14,9 +14,8 @@ To start server:</br>
 npm start
 
 
-To check if server is running link:</br>
-https://car-rental-api-node.herokuapp.com</br>
-Response get by User for server is running{"error":{"message":"Server is running"}}
+To check if server is running link: https://car-rental-api-node.herokuapp.com</br>
+{"error":{"message":"Server is running"}}
 
 
 To post a product(POST Method)</br>
@@ -56,3 +55,28 @@ https://car-rental-api-node.herokuapp.com/products/+'productId'</br>
 
 To delete details of any particular product(DELETE METHOD)</br>
 https://car-rental-api-node.herokuapp.com/products/+'productId'</br>
+
+
+How to access Orders API?</br>
+
+
+To place an order for a product(POST METHOD)</br>
+https://car-rental-api-node.herokuapp.com/orders</br>
+raw-data having key-value pair in JSON format having key as productId and value as any id of car</br>
+{</br>
+	"productId" : "5da3d4919f76c1002402cfb7"
+}</br>
+
+
+To get list of all order for a products(GET Method)</br>
+https://car-rental-api-node.herokuapp.com/orders</br>
+
+
+To get the details of a prticular order(GET Method)</br>
+https://car-rental-api-node.herokuapp.com/orders/+'productId'
+
+
+To delete a particular Order(DELETE Method)</br>
+https://car-rental-api-node.herokuapp.com/orders/+'productId'</br>
+
+Please message if found any error or for any upgradation.
