@@ -1,27 +1,40 @@
-# car-retal-node-api
-REST API for car-rental-service
+# REST API for car-rental-service
 
 
-Getting Started</br>
+**1. Getting Started**</br>
 npm install
 
 
-Dependencies used:</br>
-body-parsers, express, mongoose, morgan, multer, nodemon
+**2. Dependencies used:**</br>
+ * body-parsers</br>
+ * express</br>
+ * mongoose</br>
+ * morgan</br>
+ * multer</br>
+ * nodemon
 
 
-To start server:</br>
+**3. To start server:**</br>
 npm start
 
 
-To check if server is running link: https://car-rental-api-node.herokuapp.com</br>
-{"error":{"message":"Server is running"}}
+To check if server is running link: </br>
+https://car-rental-api-node.herokuapp.com</br>
+**Response:**{"error":{"message":"Server is running"}}
 
+## Method and Response ##
 
-To post a product(POST Method)</br>
-https://car-rental-api-node.herokuapp.com/products</br>
-form-data having key-value pair</br>
-name(String), price(Number), productImage(File size must not be greater than 5MB), ownerName(String), descriptionRegardingAvailability(String), fuelType(String), seats(Number), mobileNumber(String)
+### a. To post a product(POST Method) ###</br>
+**Link:-** https://car-rental-api-node.herokuapp.com/products</br>
+**Format for form-data**</br>
+* name(String)
+* price(Number)
+* productImage(File size must not be greater than 5MB)
+* ownerName(String)
+* descriptionRegardingAvailability(String)
+* fuelType(String)
+* seats(Number)
+* mobileNumber(String)
 
 
 To get list of all products(GET Method)</br>
