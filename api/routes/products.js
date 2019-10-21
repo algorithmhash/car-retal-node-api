@@ -37,10 +37,10 @@ router.get('/', (req, res, next)=>{
     //     message: 'Handling GET requests to /products'
     // })
     Product.find()
-    .select('name price _id productImage')
+    .select('name price _id productImage ownerName descriptionRegardingAvailability fuelType seats mobileNumber')
     .exec()
     .then(docs=>{
-        // console.log(docs);
+        console.log(docs);
         const response = {
             count: docs.length,
             products: docs.map(doc=>{
@@ -49,9 +49,14 @@ router.get('/', (req, res, next)=>{
                     price: doc.price,
                     productImage: doc.productImage,
                     _id: doc._id,
+                    ownerName: doc.ownerName,
+                    descriptionRegardingAvailability: doc.descriptionRegardingAvailability, 
+                    fuelType: doc.fuelType,
+                    seats: doc.seats,
+                    mobileNumber: doc.mobileNumber,
                     request: {
                         type: 'GET',
-                        url: 'http://localhost:3000/products/'+doc.id
+                        url: 'http://car-rental-api-node.herokuapp.com/products/'+doc.id
                     }
                 }
             })
@@ -82,7 +87,12 @@ router.post('/', upload.single('productImage'), (req, res, next)=>{
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         price: req.body.price,
-        productImage: req.file.path
+        productImage: req.file.path,
+        ownerName: req.body.ownerName,
+        descriptionRegardingAvailability: req.body.descriptionRegardingAvailability, 
+        fuelType: req.body.fuelType,
+        seats: req.body.seats,
+        mobileNumber: req.body.mobileNumber
     });
     product
     .save()
@@ -94,9 +104,14 @@ router.post('/', upload.single('productImage'), (req, res, next)=>{
                 name: result.name,
                 price: result.price,
                 _id: result.id,
+                ownerName: result.ownerName,
+                descriptionRegardingAvailability: result.descriptionRegardingAvailability, 
+                fuelType: result.fuelType,
+                seats: result.seats,
+                mobileNumber: result.mobileNumber,
                 request:{
                     type: 'GET',
-                    url: 'http://localhost:3000/products/'+result.id
+                    url: 'http://car-rental-api-node.herokuapp.com/products/'+result.id
                 }
             }
         })
@@ -121,30 +136,263 @@ router.get('/:productId',(req,res,next)=>{
     //          message: 'You passed an ID',
     //      });
     // }
-    Product.findById(id)
-    .select('name price _id productImage')
-    .exec()
-    .then(doc=>{
-        console.log("From database "+doc)
-        if(doc){
-            res.status(200).json({
-                product: doc,
-                request: {
-                    type: 'GET',
-                    description: 'To get all products click below link',
-                    url : 'http://localhost:3000/products'
-                }
-            });
-        }else{
-            res.status(404).json({
-                message: 'No valid entry found for provided ID'
+    console.log(id);
+    if(id==='sortByPrice'){
+        console.log("sort by Price inside");
+        Product.find().sort('price')
+        .select('name price _id productImage ownerName descriptionRegardingAvailability fuelType seats mobileNumber')
+        .exec()
+        .then(docs=>{
+            console.log(docs);
+            const response = {
+                count: docs.length,
+                products: docs.map(doc=>{
+                    return {
+                        name: doc.name,
+                        price: doc.price,
+                        productImage: doc.productImage,
+                        _id: doc._id,
+                        ownerName: doc.ownerName,
+                        descriptionRegardingAvailability: doc.descriptionRegardingAvailability, 
+                        fuelType: doc.fuelType,
+                        seats: doc.seats,
+                        mobileNumber: doc.mobileNumber,
+                        request: {
+                            type: 'GET',
+                            url: 'http://car-rental-api-node.herokuapp.com/products/'+doc.id
+                        }
+                    }
+                })
+            }
+            if(docs.length>0){
+                // const sortedByPrice = response.sort(function(a,b){
+                //     return a.price-b.price
+                // });
+                res.status(200).json(response);
+                // res.status(200).json({
+                //     sort: 'Price'
+                // })
+            }else{
+                res.status(404).json({
+                    message: 'No enteries found'
+                })
+            }
+        })
+        .catch(err=>{
+            console.log(err);
+            res.status(500).json({
+                error: err
             })
-        }
-    })
-    .catch(err=>{
-        console.log(err)
-        res.status(500).json({error: err});
-    });
+        });
+
+
+
+    }else if(id==='Petrol'){
+        // res.status(200).json({
+        //     sort: 'petrol'
+        // })
+
+        var total = 0;
+        Product.find()
+        .select('name price _id productImage ownerName descriptionRegardingAvailability fuelType seats mobileNumber')
+        .exec()
+        .then(docs=>{
+            console.log(docs);
+            const response = {
+                products: docs.map(doc=>{
+                    if(doc.fuelType=='Petrol'){
+                        total++;
+                        return {
+                            name: doc.name,
+                            price: doc.price,
+                            productImage: doc.productImage,
+                            _id: doc._id,
+                            ownerName: doc.ownerName,
+                            descriptionRegardingAvailability: doc.descriptionRegardingAvailability, 
+                            fuelType: doc.fuelType,
+                            seats: doc.seats,
+                            mobileNumber: doc.mobileNumber,
+                            request: {
+                                type: 'GET',
+                                url: 'http://car-rental-api-node.herokuapp.com/products/'+doc.id
+                            }
+                        }
+                    }
+                })
+            }
+            if(total>0){
+                // const sortedByPrice = response.sort(function(a,b){
+                //     return a.price-b.price
+                // });
+                res.status(200).json({count:total,response});
+                // res.status(200).json({
+                //     sort: 'Price'
+                // })
+            }else if(total===0){
+                res.status(200).json({
+                    message: 'No Petrol Vehicles'
+                })
+            }else{
+                res.status(404).json({
+                    message: 'No enteries found'
+                })
+            }
+        })
+        .catch(err=>{
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        });
+
+
+    }else if(id==='Diesel'){
+        // res.status(200).json({
+        //     sort: 'diesel'
+        // })
+        var total = 0;
+        Product.find()
+        .select('name price _id productImage ownerName descriptionRegardingAvailability fuelType seats mobileNumber')
+        .exec()
+        .then(docs=>{
+            console.log(docs);
+            const response = {
+                // count: docs.length,
+                products: docs.map(doc=>{
+                    if(doc.fuelType==='Diesel'){
+                        total = total+1;
+                        return {
+                            name: doc.name,
+                            price: doc.price,
+                            productImage: doc.productImage,
+                            _id: doc._id,
+                            ownerName: doc.ownerName,
+                            descriptionRegardingAvailability: doc.descriptionRegardingAvailability, 
+                            fuelType: doc.fuelType,
+                            seats: doc.seats,
+                            mobileNumber: doc.mobileNumber,
+                            request: {
+                                type: 'GET',
+                                url: 'http://car-rental-api-node.herokuapp.com/products/'+doc.id
+                            }
+                        }
+                    }
+                })
+            }
+            if(total>0){
+                // const sortedByPrice = response.sort(function(a,b){
+                //     return a.price-b.price
+                // });
+                res.status(200).json({count:total,response});
+                // res.status(200).json({
+                //     sort: 'Price'
+                // })
+            }else if(total===0){
+                res.status(200).json({
+                    message: 'No Diesel Vehicle'
+                })
+            }else{
+                res.status(404).json({
+                    message: 'No enteries found'
+                })
+            }
+        })
+        .catch(err=>{
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        });
+    
+
+    }else if(id==='CNG'){
+        // res.status(200).json({
+        //     sort: 'CNG'
+        // })
+
+        var total = 0;
+        Product.find()
+        .select('name price _id productImage ownerName descriptionRegardingAvailability fuelType seats mobileNumber')
+        .exec()
+        .then(docs=>{
+            console.log(docs);
+            const response = {
+                // count: docs.length,
+                products: docs.map(doc=>{
+                    if(doc.fuelType==='CNG'){
+                        total = total+1;
+                        return {
+                            name: doc.name,
+                            price: doc.price,
+                            productImage: doc.productImage,
+                            _id: doc._id,
+                            ownerName: doc.ownerName,
+                            descriptionRegardingAvailability: doc.descriptionRegardingAvailability, 
+                            fuelType: doc.fuelType,
+                            seats: doc.seats,
+                            mobileNumber: doc.mobileNumber,
+                            request: {
+                                type: 'GET',
+                                url: 'http://car-rental-api-node.herokuapp.com/products/'+doc.id
+                            }
+                        }
+                    }
+                })
+            }
+            if(total>0){
+                // const sortedByPrice = response.sort(function(a,b){
+                //     return a.price-b.price
+                // });
+                res.status(200).json({count:total,response});
+                // res.status(200).json({
+                //     sort: 'Price'
+                // })
+            }else if(total===0){
+                res.status(200).json({
+                    message: 'No CNG Vehicle'
+                })
+            }else{
+                res.status(404).json({
+                    message: 'No enteries found'
+                })
+            }
+        })
+        .catch(err=>{
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+        });
+
+
+    }else{
+
+
+        Product.findById(id)
+        .select('name price _id productImage ownerName descriptionRegardingAvailability fuelType seats mobileNumber')
+        .exec()
+        .then(doc=>{
+            console.log("From database "+doc)
+            if(doc){
+                res.status(200).json({
+                    product: doc,
+                    request: {
+                        type: 'GET',
+                        description: 'To get all products click below link',
+                        url : 'http://car-rental-api-node.herokuapp.com/products'
+                    }
+                });
+            }else{
+                res.status(404).json({
+                    message: 'No valid entry found for provided ID'
+                })
+            }
+        })
+        .catch(err=>{
+            console.log(err)
+            res.status(500).json({error: err});
+        });
+    }
  });
 
  router.patch('/:productId',(req,res,next)=>{
@@ -164,7 +412,7 @@ router.get('/:productId',(req,res,next)=>{
             message: 'product updated',
             request: {
                 type: 'GET',
-                url : 'http://localhost:3000/products/'+id
+                url : 'http://car-rental-api-node.herokuapp.com/products/'+id
             }
         });
     })
@@ -188,7 +436,7 @@ router.get('/:productId',(req,res,next)=>{
             message: 'Product deleted',
             request: {
                 type: 'POST',
-                url : 'http://localhost:3000/products',
+                url : 'http://car-rental-api-node.herokuapp.com/products',
                 body : {name: 'String', price: 'Number'}
             }
         });
@@ -199,6 +447,12 @@ router.get('/:productId',(req,res,next)=>{
             error: err
         })
     });
+
+    // router.get('/:sortByPrice',(req, res, next)=>{
+    //     res.status(200).json({
+            
+    //     })
+    // })
  });
 
 module.exports = router;

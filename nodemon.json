@@ -2,6 +2,7 @@
     "env": {
         "MONGO_ATLAS_PW": "car-rental-api",
         "MongoServerString": "mongodb+srv://car-rental-api:",
-        "MongoClusterString": "@cluster0-w5seu.mongodb.net/test?retryWrites=true&w=majority"
+        "MongoClusterString": "@cluster0-w5seu.mongodb.net/test?retryWrites=true&w=majority",
+        "MONGO_ATLAS_PW": "use_your_password"
     }
 }

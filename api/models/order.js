@@ -6,7 +6,12 @@ const orderSchema = mongoose.Schema({
     quantity: {type: Number, default: 1},
     productImage: {type: String, require: false},
     name: {type: String, required: true},
-    price: {type: Number, required: true}
+    price: {type: Number, required: true},
+    ownerName: {type: String, require: true},
+    descriptionRegardingAvailability: {type: String, require: true},
+    fuelType: {type: String, require: true},
+    seats: {type: Number, require: true},
+    mobileNumber: {type: String, require: true}
 });
 
 module.exports = mongoose.model('Order', orderSchema);
